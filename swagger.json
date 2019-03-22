@@ -1,0 +1,1807 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "ACTICO Machine Learning allows making automated predictions based on existing data. It uniquely combines Machine Learning (ML) with Business Rules Management (BRM) to enable better, predictive business decisions. The entire process of developing and using ML models is supported, including data preparation, feature engineering, model training, model validation, and the execution of trained models in production. Multiple ML models can be trained automatically based on a grid search and a leaderboard to identify the best performing models. It also allows for scheduled automated retraining of ML models to enable continuous learning based on newly gained insights. ACTICO Machine Learning integrates with ACTICO Modeler for feature engineering and the integration of business rules with ML models. It integrates with ACTICO Model Hub to enable the lifecycle management of ML models through different stages (e.g., development, test, production). ACTICO Machine Learning is based on H2O, the world leading data science and ML platform. H2O is an in-memory platform for distributed, scalable ML. H2O provides implementations of many popular algorithms such as Gradient Boosting, XGBoost, Random Forest, Neural Networks, or Stacked Ensembles. H2O is used by over 14,000 organizations worldwide.",
+    "version": "1.8.0",
+    "title": "ACTICO Machine Learning REST API Documentation"
+  },
+  "host": "localhost",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Core",
+      "description": "Core Controller"
+    },
+    {
+      "name": "Frame",
+      "description": "Frame Controller"
+    },
+    {
+      "name": "Job",
+      "description": "Job Controller"
+    },
+    {
+      "name": "Model",
+      "description": "Model Controller"
+    },
+    {
+      "name": "Score",
+      "description": "Score Controller"
+    }
+  ],
+  "paths": {
+    "/machine-learning/v1/core": {
+      "delete": {
+        "tags": [
+          "Core"
+        ],
+        "summary": "Delete all objects from the key value store",
+        "operationId": "deleteObjectsUsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/frames": {
+      "get": {
+        "tags": [
+          "Frame"
+        ],
+        "summary": "Return all frames",
+        "operationId": "getFramesUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Frame"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/frames/compatible-frames": {
+      "get": {
+        "tags": [
+          "Frame"
+        ],
+        "summary": "Return compatible frames of this model",
+        "operationId": "getCompatibleFramesUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "modelName",
+            "in": "query",
+            "description": "A string specifying the name of the model on which the operation shall be applied to",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Frame"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/frames/file/import": {
+      "post": {
+        "tags": [
+          "Frame"
+        ],
+        "summary": "Import of multipart (CSV) file",
+        "operationId": "importFileUsingPOST",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "destinationFrameName",
+            "in": "query",
+            "description": "A string specifying the name under which the frame shall be found in the key value store",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "A multipart file that shall be imported",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Frame"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/frames/file/import-path": {
+      "post": {
+        "tags": [
+          "Frame"
+        ],
+        "summary": "Import of CSV file",
+        "operationId": "importFileByPathUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "destinationFrameName",
+            "in": "query",
+            "description": "A string specifying the name under which the frame shall be found in the key value store",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "path",
+            "in": "query",
+            "description": "A string specifying the path pointing to the file that shall be imported.",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Frame"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/frames/files/import-paths": {
+      "post": {
+        "tags": [
+          "Frame"
+        ],
+        "summary": "Import of multiple CSV files",
+        "operationId": "importFilesByPathsUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "destinationFrameNames",
+            "in": "query",
+            "description": "A string list of names under which the frames shall be found in the key value store",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "paths",
+            "in": "query",
+            "description": "A string list of paths pointing to the files that shall be imported",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Frame"
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/frames/parse": {
+      "post": {
+        "tags": [
+          "Frame"
+        ],
+        "summary": "Parse multiple frames",
+        "operationId": "parseFramesUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "destinationFrameNames",
+            "in": "query",
+            "description": "A string list of names under which the frames shall be found in the key value store",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "frameNames",
+            "in": "query",
+            "description": "A string list of frame names that shall be parsed",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Job"
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/frames/{frameName}": {
+      "get": {
+        "tags": [
+          "Frame"
+        ],
+        "summary": "Return this frame",
+        "operationId": "getFrameUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "frameName",
+            "in": "path",
+            "description": "A string specifying the name of the frame on which the operation shall be applied to",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "rowCount",
+            "in": "query",
+            "description": "An integer specifying the number of rows that shall be returned",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "allowEmptyValue": false,
+            "x-example": 100
+          },
+          {
+            "name": "rowOffset",
+            "in": "query",
+            "description": "An integer specifying the offset of rows from where rows shall be returned from frame",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "allowEmptyValue": false,
+            "x-example": 100
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Frame"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "Frame"
+        ],
+        "summary": "Delete this frame from the key value store",
+        "operationId": "deleteFrameUsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "frameName",
+            "in": "path",
+            "description": "A string specifying the name of the frame on which the operation shall be applied to",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/frames/{frameName}/convert": {
+      "post": {
+        "tags": [
+          "Frame"
+        ],
+        "summary": "Convert the columns data types of this frame",
+        "operationId": "convertColumnTypeUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "columnName",
+            "in": "query",
+            "description": "A string specifying the columns name that shall be converted",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "frameName",
+            "in": "path",
+            "description": "A string specifying the name of the frame on which the operation shall be applied to",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/frames/{frameName}/parse": {
+      "post": {
+        "tags": [
+          "Frame"
+        ],
+        "summary": "Parse this frame",
+        "operationId": "parseFrameUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "columnNames",
+            "in": "query",
+            "description": "A string list of column names. Column names represent the values in your CSV files header. This parameter has to be used together with the columnTypes parameter. E.g. if you want to change the column type of the columns \"C1\" and \"C4\" to Enum use the following parameter values: columnNames = {\"C1\", \"C4\"} and columnTypes = {\"Enum\", \"Enum\"} ",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "columnTypes",
+            "in": "query",
+            "description": "A string list of column types. Supported column types are Enum, Numeric, Real and Time. This parameter has to be used together with the columnNames parameter. E.g. if you want to change the column type of the columns \"C1\" and \"C4\" to Enum use the following parameter values: columnNames = {\"C1\", \"C4\"} and columnTypes = {\"Enum\", \"Enum\"}",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "containsHeader",
+            "in": "query",
+            "description": "A boolean that indicates whether the CSV file has a column header with column names. If not, column names will be added where the column names are C plus the column names index. E.g. for the first column C1.",
+            "required": false,
+            "type": "boolean",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "deleteOnDone",
+            "in": "query",
+            "description": "A boolean indicating whether or not to delete input frames after processing.",
+            "required": false,
+            "type": "boolean",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "delimiter",
+            "in": "query",
+            "description": "A char that separates columns in the CSV file. Preferred is the semicolon.",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "destinationFrameName",
+            "in": "query",
+            "description": "A string specifying the name under which the frame shall be found in the key value store",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "frameName",
+            "in": "path",
+            "description": "A string specifying the name of the frame on which the operation shall be applied to",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Job"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/frames/{frameName}/split": {
+      "post": {
+        "tags": [
+          "Frame"
+        ],
+        "summary": "Split this frame in multiple other frames",
+        "operationId": "splitFrameUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "deleteOnDone",
+            "in": "query",
+            "description": "A boolean indicating whether or not to delete input frames after processing.",
+            "required": false,
+            "type": "boolean",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "destinationFrameNames",
+            "in": "query",
+            "description": "A string list of names under which the frames shall be found in the key value store",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "frameName",
+            "in": "path",
+            "description": "A string specifying the name of the frame on which the operation shall be applied to",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "seed",
+            "in": "query",
+            "description": "An integer to be used for random number generation.",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false,
+            "x-example": 42
+          },
+          {
+            "name": "splitRatios",
+            "in": "query",
+            "description": "A double list of split ratios. The sum of all split ratios must be 1.0.",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "double"
+            },
+            "collectionFormat": "multi",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Frame"
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/jobs": {
+      "get": {
+        "tags": [
+          "Job"
+        ],
+        "summary": "Return all jobs",
+        "operationId": "getJobsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Job"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/jobs/{jobName}": {
+      "get": {
+        "tags": [
+          "Job"
+        ],
+        "summary": "Return this job",
+        "operationId": "getJobUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "jobName",
+            "in": "path",
+            "description": "A string specifying the name of the job on which the operation shall be applied to",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Job"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/jobs/{jobName}/abort": {
+      "get": {
+        "tags": [
+          "Job"
+        ],
+        "summary": "Abort this job",
+        "operationId": "abortJobUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "jobName",
+            "in": "path",
+            "description": "A string specifying the name of the job on which the operation shall be applied to",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/models": {
+      "get": {
+        "tags": [
+          "Model"
+        ],
+        "summary": "Return models associated with a job",
+        "operationId": "getModelsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "jobName",
+            "in": "query",
+            "description": "A string specifying the name of the job on which the operation shall be applied to",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Model"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/models/compatible-models": {
+      "get": {
+        "tags": [
+          "Model"
+        ],
+        "summary": "Return compatible models of this frame",
+        "operationId": "getCompatibleModelsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "frameName",
+            "in": "query",
+            "description": "A string specifying the name of the frame on which the operation shall be applied to",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Model"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/models/import": {
+      "get": {
+        "tags": [
+          "Model"
+        ],
+        "summary": "Import H2O model into the key value store.",
+        "operationId": "importModelUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "path",
+            "in": "query",
+            "description": "A string specifying the path pointing to the file that shall be imported.",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Model"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/models/{modelName}": {
+      "get": {
+        "tags": [
+          "Model"
+        ],
+        "summary": "Return this model",
+        "operationId": "getModelUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "modelName",
+            "in": "path",
+            "description": "A string specifying the name of the model on which the operation shall be applied to",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Model"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "Model"
+        ],
+        "summary": "Delete this model",
+        "operationId": "deleteModelUsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "modelName",
+            "in": "path",
+            "description": "A string specifying the name of the model on which the operation shall be applied to",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/models/{modelName}/export": {
+      "get": {
+        "tags": [
+          "Model"
+        ],
+        "summary": "Return the binaries of this model",
+        "operationId": "exportModelUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "modelName",
+            "in": "path",
+            "description": "A string specifying the name of the model on which the operation shall be applied to",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/StreamingResponseBody"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/models/{modelName}/exportExecutable": {
+      "get": {
+        "tags": [
+          "Model"
+        ],
+        "summary": "Return an executable of this model",
+        "operationId": "exportModelExecutableUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "modelName",
+            "in": "path",
+            "description": "A string specifying the name of the model on which the operation shall be applied to",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/StreamingResponseBody"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/models/{modelName}/persist": {
+      "post": {
+        "tags": [
+          "Model"
+        ],
+        "summary": "Persist this machine learning model on ACTICO Model Hub",
+        "operationId": "persistModelExecutableUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "group",
+            "in": "query",
+            "description": "A string specifying the group of the model to be published. This can be understood like the groupId of a maven coordinate.",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "modelName",
+            "in": "path",
+            "description": "A string specifying the name of the model on which the operation shall be applied to",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "A string specifying the name of the model to be published. This can be understood like the artifactId of a maven coordinate.",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "description": "A string specifying the version of the model to be published. This can be understood like the version of a maven coordinate.",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/scores/leaderboard/binomial": {
+      "get": {
+        "tags": [
+          "Score"
+        ],
+        "summary": "Create a binomial leaderboard for all compatible models for this frame",
+        "operationId": "getLeaderboardBinomialUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "frameName",
+            "in": "query",
+            "description": "A string specifying the name of the frame on which the operation shall be applied to",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "sortingMetric",
+            "in": "query",
+            "description": "An enum containing all possible metrics for a binomial classification problem",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false,
+            "enum": [
+              "MSE",
+              "RMSE",
+              "R2",
+              "LOGLOSS",
+              "AUC",
+              "GINI",
+              "MPCE"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LeaderboardBinomial"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/scores/leaderboard/multinomial": {
+      "get": {
+        "tags": [
+          "Score"
+        ],
+        "summary": "Create a multinomial leaderboard for all compatible models for this frame",
+        "operationId": "getLeaderboardMultinomialUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "frameName",
+            "in": "query",
+            "description": "A string specifying the name of the frame on which the operation shall be applied to",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "sortingMetric",
+            "in": "query",
+            "description": "An enum containing all possible metrics for a multinomial classification problem",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false,
+            "enum": [
+              "MSE",
+              "RMSE",
+              "R2",
+              "LOGLOSS",
+              "MPCE"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LeaderboardMultinomial"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/scores/{modelName}/binomial": {
+      "get": {
+        "tags": [
+          "Score"
+        ],
+        "summary": "Return saved score for a binomial model",
+        "operationId": "getScoresBinomialUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "modelName",
+            "in": "path",
+            "description": "A string specifying the name of the model on which the operation shall be applied to",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ScoreBinomial"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/scores/{modelName}/frames/{testFrameName}/score/binomial": {
+      "post": {
+        "tags": [
+          "Score"
+        ],
+        "summary": "Create the score for a binomial model",
+        "operationId": "scoreBinomialModelUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "modelName",
+            "in": "path",
+            "description": "A string specifying the name of the model on which the operation shall be applied to",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "testFrameName",
+            "in": "path",
+            "description": "A string specifying the frame that shall be used for scoring.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ScoreBinomial"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/scores/{modelName}/frames/{testFrameName}/score/multinomial": {
+      "post": {
+        "tags": [
+          "Score"
+        ],
+        "summary": "Create the score for a multinomial model",
+        "operationId": "scoreMultinomialModelUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "modelName",
+            "in": "path",
+            "description": "A string specifying the name of the model on which the operation shall be applied to",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "testFrameName",
+            "in": "path",
+            "description": "A string specifying the frame that shall be used for scoring.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ScoreMultinomial"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/machine-learning/v1/scores/{modelName}/multinomial": {
+      "get": {
+        "tags": [
+          "Score"
+        ],
+        "summary": "Return saved score for a multinomial model",
+        "operationId": "getScoresMultinomialUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "modelName",
+            "in": "path",
+            "description": "A string specifying the name of the model on which the operation shall be applied to",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ScoreMultinomial"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "Column": {
+      "type": "object",
+      "properties": {
+        "cardinality": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "dataType": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "maximumValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "meanValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "minimumValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "name": {
+          "type": "string"
+        },
+        "numberOfZeros": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "sigmaValue": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      "title": "Column"
+    },
+    "ColumnSpecification": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "ColumnSpecification"
+    },
+    "Frame": {
+      "type": "object",
+      "properties": {
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Column"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "numberOfColumns": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "numberOfRows": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "sizeInBytes": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "Frame"
+    },
+    "InputStream": {
+      "type": "object",
+      "title": "InputStream"
+    },
+    "Job": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "destinationObjectName": {
+          "type": "string"
+        },
+        "destinationObjectType": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "progress": {
+          "type": "number",
+          "format": "float"
+        },
+        "startTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "title": "Job"
+    },
+    "LeaderboardBinomial": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ScoreBinomial"
+          }
+        }
+      },
+      "title": "LeaderboardBinomial"
+    },
+    "LeaderboardMultinomial": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ScoreMultinomial"
+          }
+        }
+      },
+      "title": "LeaderboardMultinomial"
+    },
+    "Model": {
+      "type": "object",
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "enum": [
+            "RF",
+            "GB",
+            "DL",
+            "XGB"
+          ]
+        },
+        "endTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "featureImportance": {
+          "$ref": "#/definitions/TwoDimensionalTable"
+        },
+        "modelCategory": {
+          "type": "string",
+          "enum": [
+            "BINOMIAL",
+            "MULTINOMIAL",
+            "CLUSTERING",
+            "REGRESSION"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "scoringHistory": {
+          "$ref": "#/definitions/TwoDimensionalTable"
+        },
+        "trainingFrameName": {
+          "type": "string"
+        },
+        "trainingParameters": {
+          "type": "object"
+        }
+      },
+      "title": "Model"
+    },
+    "ScoreBinomial": {
+      "type": "object",
+      "properties": {
+        "auc": {
+          "type": "number",
+          "format": "double"
+        },
+        "confusionMatrix": {
+          "$ref": "#/definitions/TwoDimensionalTable"
+        },
+        "description": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "frameName": {
+          "type": "string"
+        },
+        "gainsLiftTable": {
+          "$ref": "#/definitions/TwoDimensionalTable"
+        },
+        "gini": {
+          "type": "number",
+          "format": "double"
+        },
+        "logloss": {
+          "type": "number",
+          "format": "double"
+        },
+        "maxCriteriaAndMetricsScores": {
+          "$ref": "#/definitions/TwoDimensionalTable"
+        },
+        "modelCategory": {
+          "type": "string"
+        },
+        "modelName": {
+          "type": "string"
+        },
+        "mpce": {
+          "type": "number",
+          "format": "double"
+        },
+        "mse": {
+          "type": "number",
+          "format": "double"
+        },
+        "r2": {
+          "type": "number",
+          "format": "double"
+        },
+        "rmse": {
+          "type": "number",
+          "format": "double"
+        },
+        "scoringTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "thresholdAndMetricScores": {
+          "$ref": "#/definitions/TwoDimensionalTable"
+        }
+      },
+      "title": "ScoreBinomial"
+    },
+    "ScoreMultinomial": {
+      "type": "object",
+      "properties": {
+        "confusionMatrix": {
+          "$ref": "#/definitions/TwoDimensionalTable"
+        },
+        "description": {
+          "type": "string"
+        },
+        "frameName": {
+          "type": "string"
+        },
+        "logloss": {
+          "type": "number",
+          "format": "double"
+        },
+        "meanPerClassError": {
+          "type": "number",
+          "format": "double"
+        },
+        "modelCategory": {
+          "type": "string"
+        },
+        "modelName": {
+          "type": "string"
+        },
+        "mse": {
+          "type": "number",
+          "format": "double"
+        },
+        "r2": {
+          "type": "number",
+          "format": "double"
+        },
+        "rmse": {
+          "type": "number",
+          "format": "double"
+        },
+        "scoringTime": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ScoreMultinomial"
+    },
+    "StreamingResponseBody": {
+      "type": "object",
+      "title": "StreamingResponseBody"
+    },
+    "TwoDimensionalTable": {
+      "type": "object",
+      "properties": {
+        "columnSpecifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ColumnSpecification"
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "rowCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "TwoDimensionalTable"
+    }
+  }
+}
