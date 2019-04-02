@@ -1,0 +1,7 @@
+#Last modified on: Mon Jun 25 15:41:32 CEST 2018
+#Mon Jun 25 15:41:32 CEST 2018
+http\://localhost\:49985/vrinternal=1529934092117
+-1005344068@https\://repo.bfs-intra.net/actico-internal=1529934092030
+https\://repo.bfs-intra.net/public/=1529934092042
+-1005344068@https\://repo.bfs-intra.net/actico-internal.error=sun.security.validator.ValidatorException\: PKIX path building failed\: sun.security.provider.certpath.SunCertPathBuilderException\: unable to find valid certification path to requested target
+https\://repo.bfs-intra.net/public/.error=sun.security.validator.ValidatorException\: PKIX path building failed\: sun.security.provider.certpath.SunCertPathBuilderException\: unable to find valid certification path to requested target

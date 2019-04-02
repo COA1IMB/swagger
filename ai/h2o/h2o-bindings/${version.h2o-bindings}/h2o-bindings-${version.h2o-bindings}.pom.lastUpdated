@@ -1,0 +1,6 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Thu Aug 30 12:02:39 CEST 2018
+https\://repo.bfs-intra.net/actico-internal/.error=Could not transfer artifact ai.h2o\:h2o-bindings\:pom\:${version.h2o-bindings} from/to actico-internal (https\://repo.bfs-intra.net/actico-internal)\: Failed to transfer file\: https\://repo.bfs-intra.net/actico-internal/ai/h2o/h2o-bindings/$%7Bversion.h2o-bindings%7D/h2o-bindings-$%7Bversion.h2o-bindings%7D.pom. Return code is\: 400 , ReasonPhrase\:Bad Request.
+https\://repo.bfs-intra.net/public/.error=Could not transfer artifact ai.h2o\:h2o-bindings\:pom\:${version.h2o-bindings} from/to public (https\://repo.bfs-intra.net/public/)\: Failed to transfer file\: https\://repo.bfs-intra.net/public/ai/h2o/h2o-bindings/$%7Bversion.h2o-bindings%7D/h2o-bindings-$%7Bversion.h2o-bindings%7D.pom. Return code is\: 400 , ReasonPhrase\:Bad Request.
+@default-public-https\://repo.bfs-intra.net/public/.lastUpdated=1535623359771
+d35c8ca7a56689782080f66b33f5b729e49d28a4@default-actico-internal-https\://repo.bfs-intra.net/actico-internal/.lastUpdated=1535623359725

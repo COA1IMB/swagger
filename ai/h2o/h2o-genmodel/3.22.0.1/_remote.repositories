@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Tue Jan 08 09:16:02 CET 2019
+h2o-genmodel-3.22.0.1.pom>=
+h2o-genmodel-3.22.0.1.jar>actico-internal=
+h2o-genmodel-3.22.0.1.pom>actico-internal=

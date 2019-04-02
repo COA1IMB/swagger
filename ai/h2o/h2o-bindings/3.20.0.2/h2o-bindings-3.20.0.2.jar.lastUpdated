@@ -1,0 +1,5 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Tue Jun 26 15:33:26 CEST 2018
+@default-public-https\://repo.bfs-intra.net/public/.lastUpdated=1530018356256
+https\://repo.bfs-intra.net/public/.error=Could not transfer artifact ai.h2o\:h2o-bindings\:jar\:3.20.0.2 from/to public (https\://repo.bfs-intra.net/public/)\: sun.security.validator.ValidatorException\: PKIX path building failed\: sun.security.provider.certpath.SunCertPathBuilderException\: unable to find valid certification path to requested target
+https\://repo.bfs-intra.net/actico-internal/.lastUpdated=1530020006444
