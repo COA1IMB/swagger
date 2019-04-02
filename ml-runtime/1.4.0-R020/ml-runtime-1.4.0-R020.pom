@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.actico.platform.ml</groupId>
+    <artifactId>ml-runtime</artifactId>
+    <version>1.4.0-R020</version>
+    <name>ml-runtime</name>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>com.actico.platform.ml</groupId>
+        <artifactId>ml-rule-models</artifactId>
+        <version>1.4.0-R020</version>
+    </parent>
+
+    <properties>
+        <entryModel>ml-runtime</entryModel>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${version.slf4j}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.visualrules</groupId>
+            <artifactId>visualrules-runtime</artifactId>
+            <version>${version.visualrules}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.actico.platform.ml</groupId>
+            <artifactId>ml-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.actico.platform.ml</groupId>
+            <artifactId>ml-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>de.visualrules.builder</groupId>
+                <artifactId>visualrules-javagenerator-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.actico.platform.ml</groupId>
+    <artifactId>ml-feature-engineering</artifactId>
+    <version>1.6.0-R005</version>
+    <name>ml-feature-engineering</name>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>com.actico.platform.ml</groupId>
+        <artifactId>ml-rule-models</artifactId>
+        <version>1.6.0-R005</version>
+    </parent>
+
+    <properties>
+        <entryModel>ml-feature-engineering</entryModel>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.visualrules</groupId>
+            <artifactId>visualrules-runtime</artifactId>
+            <version>${version.visualrules}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>${version.commons-beanutils}</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>de.visualrules.builder</groupId>
+                <artifactId>visualrules-javagenerator-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

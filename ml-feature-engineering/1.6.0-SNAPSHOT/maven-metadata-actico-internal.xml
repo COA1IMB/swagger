@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>com.actico.platform.ml</groupId>
+  <artifactId>ml-feature-engineering</artifactId>
+  <version>1.6.0-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20190215.121450</timestamp>
+      <buildNumber>10</buildNumber>
+    </snapshot>
+    <lastUpdated>20190215203608</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>1.6.0-20190215.121450-10</value>
+        <updated>20190215121450</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>1.6.0-20190215.121450-10</value>
+        <updated>20190215121450</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>
